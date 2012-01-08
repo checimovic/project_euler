@@ -14,7 +14,6 @@ done = False
 # Check our answer.
 while not done:
     for divisor in xrange(1, 21):
-        print "num = %d, divisor = %d" % (num, divisor)
         if num % divisor != 0:
             break
         
