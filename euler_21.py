@@ -1,4 +1,4 @@
-#! /usr/bin/python -i
+#! /usr/bin/python
 
 # Project Euler problem 21
 
