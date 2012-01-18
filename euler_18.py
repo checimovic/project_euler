@@ -21,32 +21,17 @@ T = "\
 63 66 04 68 89 53 67 30 73 16 69 87 40 31;\
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"
 
+import itertools as it
+
 # Clean the data - remove leading zeros on numbers and put the whole thing
 # into a list of lists of ints.
 nums_list = [[n for n in nums.split(' ')] for nums in T.split(';')]
 triangle = [[int(j[1:]) if j[0] == '0' else int(j) for j in i] for i in nums_list]
 
-previous = -1
-total = 0
-rownum = 0
+# Work up from the bottom - add up each pair of numbers and put the sums into the row 
+# above.
+for row in range(len(triangle) - 1, 0, -1):
+    for col in range(0, row):
+        triangle[row - 1][col] += max(triangle[row][col], triangle[row][col + 1])
 
-for row in triangle:
-    option1 = row[min(previous + 1, rownum)]
-    option2 = row[previous]
-    print "%d, %d" % (option1, option2)
-    
-    if option1 > option2:
-        previous += 1
-        total += option1
-        print option1
-    else:
-        total += option2
-        print option2
-    
-    rownum += 1
-
-print total
-
-    
-    
-        
+print triangle[0][0]
