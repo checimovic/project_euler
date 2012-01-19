@@ -18,10 +18,5 @@ How many Sundays fell on the first of the month during the twentieth century (1 
 import calendar as cal
 import itertools as it
 
-total = 0
+print len([(year, month) for year, month in it.product(range(1901, 2001), range(1, 13)) if cal.monthrange(year, month)[0] == 6])
 
-for year, month in it.product(range(1901, 2001), range(1, 13)):
-    if cal.monthrange(year, month)[0] == 6:
-        total += 1
-        
-print total
