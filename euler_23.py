@@ -11,9 +11,10 @@ As 12 is the smallest abundant number, 1 + 2 + 3 + 4 + 6 = 16, the smallest numb
 Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers."""
 
 import math
+import itertools
 
 # This is inefficient.
-def get_divs(n):  
+def get_divs(n): 
     divs = [1]  
     check = 2  
     rootn = math.sqrt(n)
@@ -27,11 +28,31 @@ def get_divs(n):
     if rootn == check:  
         divs.append(check)  
         divs.sort()
-        
+    
     return divs 
-    
+
+# Cache our possibly-abundant integers here. The key is the number, the value is boolean.    
+abundant_dict = {}
+
+# Return whether or not a number is abundant. Cache the answer.
 def abundant(n):
-    return sum(divs(n)) > n 
+    try:
+        return abundant_dict[n]
+    except KeyError:
+        pass
     
-#for n in range(2, 28123):
+    abundant_dict[n] = sum(get_divs(n)) > n
     
+    return abundant_dict[n] 
+    
+# Return whether or not a number is the sum of two abundant numbers.
+def is_abundant_sum(n):
+    for i in range(1, n//2 + 1):
+        
+        if abundant(i) and abundant(n-i):
+            return True
+    
+    return False
+    
+print sum([n for n in range(1, 28123) if not is_abundant_sum(n)])
+
