@@ -34,13 +34,7 @@ def isprime(n):
             return False
             
     return True
-    
-n = 2
-total = 0
 
-while n < 2000000:
-    if isprime(n):
-        total += n
-    n += 1
 
-print total
+print sum([n for n in range(2, 2000000) if isprime(n)])
+
