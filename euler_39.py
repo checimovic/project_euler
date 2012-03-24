@@ -7,8 +7,6 @@
 # Generate Pythagorean triplets. See problem 9.
 done = False
 freqs = {}
-most_frequent_sum = 0
-most_occurrences = 0
 
 for m in range(1, 101):
     # Start by generating primitives.
@@ -33,9 +31,4 @@ for m in range(1, 101):
                 freqs[sum] = set()
             freqs[sum].add((k*a, k*b, k*c))
             
-            if len(freqs[sum]) > most_occurrences:
-                most_occurrences = len(freqs[sum])
-                most_frequent = sum
-            
-print "Most frequent: %d" % most_frequent
-
+print "Most frequent: %d" % max(freqs, key=lambda a: len(freqs.get(a)))
